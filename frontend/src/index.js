@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import {ApolloClient, InMemoryCache, ApolloProvider, gql} from '@apollo/client';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import ListDevices from "./view/devices/ListDevices";
@@ -26,7 +25,7 @@ const router = createBrowserRouter([
     element: <CreateDevice/>
   },
   {
-    path: '/edit',
+    path: '/edit/:deviceId',
     element: <EditDevice/>
   }
 

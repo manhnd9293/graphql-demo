@@ -29,7 +29,11 @@ function ListDevices() {
           {data.devices.map(({_id, name}) => {
             return (
               <tr key={_id}>
-                <td>{_id}</td>
+                <td>
+                  <Link to={`/edit/${_id}`}>
+                    {_id}
+                  </Link>
+                </td>
                 <td>{name}</td>
 
               </tr>

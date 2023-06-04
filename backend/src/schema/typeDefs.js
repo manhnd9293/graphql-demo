@@ -8,6 +8,7 @@ const typeDefs = gql`
     
     type Query{
         devices: [Device!]!
+        device(_id: String!): Device
     }
     
     input CreatDeviceInput {
@@ -20,8 +21,8 @@ const typeDefs = gql`
     }
     
     type Mutation {
-        createDevice(newDeviceData: CreatDeviceInput): Device
-        updateDevice(updateDeviceData: UpdateDeviceInput): Device
+        createDevice(newDeviceData: CreatDeviceInput!): Device
+        updateDevice(updateDeviceData: UpdateDeviceInput!): Device
         deleteDevices(deviceIds: [ID!]): Boolean
     }
 `
