@@ -7,6 +7,18 @@ class DeviceService {
     return devices;
   }
 
+  async getDeviceDetail({_id}) {
+    const device = await DeviceModel.findOne({
+      _id,
+    }).lean();
+
+    if (!device) {
+      throw new Error(`device not found`);
+    }
+
+    return device;
+  }
+
   async createDevice({name}) {
     const newDevice = await DeviceModel.create({
       name

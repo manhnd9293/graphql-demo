@@ -4,6 +4,11 @@ const resolvers = {
   Query: {
     async devices(){
       return await DeviceService.getDevices();
+    },
+
+    async device(parent, args) {
+      const {_id} = args;
+      return await DeviceService.getDeviceDetail({_id});
     }
   },
   Mutation: {
