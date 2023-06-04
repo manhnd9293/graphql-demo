@@ -8,9 +8,12 @@ const resolvers = {
 
     async device(parent, args) {
       const {_id} = args;
-      return await DeviceService.getDeviceDetail({_id});
+      const deviceDetail = await DeviceService.getDeviceDetail({_id});
+      deviceDetail.licenseList = ['x', 'y'];
+      return deviceDetail;
     }
   },
+
   Mutation: {
     async createDevice(parent, args) {
       const {newDeviceData: {name}} = args;
@@ -31,6 +34,12 @@ const resolvers = {
         return false;
       }
     },
+  },
+
+  Device: {
+    async licenseList(parent, args) {
+      return ['1', '2', '3']
+    }
   }
 }
 

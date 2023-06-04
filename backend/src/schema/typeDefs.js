@@ -4,6 +4,7 @@ const typeDefs = gql`
     type Device {
         _id: ID!,
         name: String!
+        licenseList: [String]
     }
     
     type Query{
