@@ -5,6 +5,12 @@ const typeDefs = gql`
         _id: ID!,
         name: String!
         licenseList: [String]
+        subDevices: [SubDevice]
+    }
+    
+    type SubDevice {
+        _id: ID!,
+        name: String!
     }
     
     type Query{
@@ -14,6 +20,7 @@ const typeDefs = gql`
     
     input CreatDeviceInput {
         name: String!
+        subDevices: [String]
     }
     
     input UpdateDeviceInput {

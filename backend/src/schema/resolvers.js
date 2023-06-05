@@ -1,5 +1,6 @@
 
 const DeviceService = require('../services/device/DeviceService');
+const {SubDeviceService} = require("../services/subDevices/SubDeviceService");
 const resolvers = {
   Query: {
     async devices(){
@@ -16,8 +17,14 @@ const resolvers = {
 
   Mutation: {
     async createDevice(parent, args) {
-      const {newDeviceData: {name}} = args;
-      return await DeviceService.createDevice({name});
+      const {newDeviceData: {name, subDevices}} = args;
+      const parentDevice = await DeviceService.createDevice({name});
+      const newSubDevices = await SubDeviceService.createSubDevice({
+        parentId: parentDevice._id,
+        subDevices
+      })
+
+      return {...parentDevice, subDevices}
     },
 
     async updateDevice(parent, args) {
@@ -39,6 +46,13 @@ const resolvers = {
   Device: {
     async licenseList(parent, args) {
       return ['1', '2', '3']
+    },
+
+    async subDevices(parent, args) {
+      const {_id} = parent;
+      const subDevices = await SubDeviceService.getSubDevice({parentId: _id});
+
+      return subDevices;
     }
   }
 }
