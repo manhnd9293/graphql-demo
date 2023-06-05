@@ -10,7 +10,16 @@ class SubDeviceService {
   }
 
   async createSubDevice({parentId, subDevices}){
-    await SubDeviceModel.bulkWrite
+    await SubDeviceModel.insertMany(
+      subDevices.map(subDevice => ({
+        parentId,
+        name: subDevice
+      }))
+    );
+
+    return SubDeviceModel.find({
+      parentId
+    }).lean();
   }
 }
 

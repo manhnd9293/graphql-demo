@@ -19,12 +19,16 @@ const resolvers = {
     async createDevice(parent, args) {
       const {newDeviceData: {name, subDevices}} = args;
       const parentDevice = await DeviceService.createDevice({name});
-      const newSubDevices = await SubDeviceService.createSubDevice({
-        parentId: parentDevice._id,
-        subDevices
-      })
+      let newSubDevices = [];
+      if(subDevices) {
+        newSubDevices = await SubDeviceService.createSubDevice({
+          parentId: parentDevice._id,
+          subDevices
+        })
 
-      return {...parentDevice, subDevices}
+      }
+
+      return {...parentDevice, subDevices: newSubDevices}
     },
 
     async updateDevice(parent, args) {

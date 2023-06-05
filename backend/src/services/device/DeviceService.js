@@ -24,7 +24,7 @@ class DeviceService {
       name
     });
 
-    return newDevice;
+    return newDevice.toObject();
   }
 
   async updateDevice({name, _id}) {
