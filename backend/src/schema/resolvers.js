@@ -3,11 +3,13 @@ const DeviceService = require('../services/device/DeviceService');
 const {SubDeviceService} = require("../services/subDevices/SubDeviceService");
 const resolvers = {
   Query: {
-    async devices(){
+    async devices(parent, args, context){
+      context.deviceSerialNo = 'dev-1';
       return await DeviceService.getDevices();
     },
 
-    async device(parent, args) {
+    async device(parent, args, context) {
+      context.deviceSerialNo = 'dev-1';
       const {_id} = args;
       const deviceDetail = await DeviceService.getDeviceDetail({_id});
       deviceDetail.licenseList = ['x', 'y'];
@@ -57,6 +59,14 @@ const resolvers = {
       const subDevices = await SubDeviceService.getSubDevice({parentId: _id});
 
       return subDevices;
+    }
+  },
+
+  SubDevice: {
+    serialNumber: async (parent, args, context) => {
+      const deviceSerialNo = context.deviceSerialNo;
+      const subNo = 'sub-1234';
+      return `${deviceSerialNo}-${subNo}`;
     }
   }
 }

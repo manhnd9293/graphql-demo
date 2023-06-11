@@ -1,6 +1,18 @@
 const {gql} = require("apollo-server");
 
 const typeDefs = gql`
+    type Query{
+        devices: [Device!]!
+        device(_id: String!): Device
+    }
+
+    type Mutation {
+        createDevice(newDeviceData: CreatDeviceInput!): Device
+        updateDevice(updateDeviceData: UpdateDeviceInput!): Device
+        deleteDevices(deviceIds: [ID!]): Boolean
+    }
+
+
     type Device {
         _id: ID!,
         name: String!
@@ -10,12 +22,8 @@ const typeDefs = gql`
     
     type SubDevice {
         _id: ID!,
-        name: String!
-    }
-    
-    type Query{
-        devices: [Device!]!
-        device(_id: String!): Device
+        name: String!,
+        serialNumber: String,
     }
     
     input CreatDeviceInput {
@@ -26,12 +34,6 @@ const typeDefs = gql`
     input UpdateDeviceInput {
         name: String!
         _id: ID!
-    }
-    
-    type Mutation {
-        createDevice(newDeviceData: CreatDeviceInput!): Device
-        updateDevice(updateDeviceData: UpdateDeviceInput!): Device
-        deleteDevices(deviceIds: [ID!]): Boolean
     }
 `
 
